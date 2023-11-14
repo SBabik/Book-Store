@@ -1,0 +1,17 @@
+version: ''
+services:
+  api:
+    build: ./api
+    ports:
+      - "8080:80"
+      - "8081:443"
+    depends_on:
+      - redis
+      - mysql
+  redis:
+    image: redis:latest
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+

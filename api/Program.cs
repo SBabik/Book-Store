@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BookContext>(opts =>
 {
-    opts.UseMySql("Server=127.0.0.1;Database=BookStore;Uid=root;Pwd=;", new MySqlServerVersion(new Version(8, 0, 29)));
+    opts.UseMySql("Server=mysql;Database=BookStore;Uid=root;Pwd=admin;", new MySqlServerVersion(new Version(8, 0, 29)),op=>op.EnableRetryOnFailure(10));
 });
 
 builder.Services.AddTransient<IBookService, BookService>();
@@ -21,12 +21,15 @@ builder.Services.AddTransient<IBookRepository, BookRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
+    var dbContext = scope.ServiceProvider.GetRequiredService<BookContext>();
+    await dbContext.Database.MigrateAsync();
+}
+
+// Configure the HTTP request pipeline
     app.UseSwagger();
     app.UseSwaggerUI();
-}
 
 app.UseHttpsRedirection();
 
