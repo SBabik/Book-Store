@@ -1,4 +1,5 @@
-﻿using book_store.Models;
+﻿using book_store.DBContext;
+using book_store.Models;
 using book_store.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,7 +22,19 @@ public class BookController : ControllerBase
     public async Task<IActionResult> AddBook([FromBody]AddBookRequest book)
     {
         var result = await _bookService.AddBook(book);
-        if(result == 0)
+        if(result == null)
+        {
+            return BadRequest();
+        }
+        return Ok(result);
+    }
+
+    [HttpGet]
+    [Route("book/{id}")]
+    public async Task<IActionResult> Get([FromRoute]int id)
+    {
+        var result = await _bookService.GetBook(id);
+        if(result == null)
         {
             return BadRequest();
         }
