@@ -22,4 +22,10 @@ public class UserRepository : RepositoryBase<User>, IUserRepository
         user = await Add(user);
         return user;
     }
+
+    public async Task<User?> Get(int id)
+    {
+        var entity = await table.FindAsync(id);
+        return entity;
+    }
 }

@@ -25,4 +25,16 @@ public class UserController : ControllerBase
         }
         return Ok(result);
     }
+
+    [HttpGet]
+    [Route("user/{id}")]
+    public async Task<IActionResult> Get([FromRoute]int id)
+    {
+        var result = await _userService.GetUser(id);
+        if (result == null)
+        {
+            return BadRequest();
+        }
+        return Ok(result);
+    }
 }

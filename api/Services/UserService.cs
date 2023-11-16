@@ -21,4 +21,9 @@ public class UserService : IUserService
             user.Password,
             user.Email);
     }
+
+    public async Task<User?> GetUser(int id)
+    {
+        return await _userRepository.Get(id);
+    }
 }
