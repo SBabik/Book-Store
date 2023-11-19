@@ -1,9 +1,8 @@
-﻿namespace book_store.DBContext
+﻿namespace book_store.DBContext;
+
+public class Book
 {
-    public class Book
-    {
-        public int Id { get; set; }
-        public string BookId { get; set; }
-        public string BookName { get; set; }
-    }
+    public int Id { get; set; }
+    public string BookId { get; set; }
+    public string BookName { get; set; }
 }
