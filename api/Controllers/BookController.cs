@@ -40,4 +40,17 @@ public class BookController : ControllerBase
         }
         return Ok(result);
     }
+
+    [HttpGet]
+    [Route("book")]
+    public async Task<IActionResult> GetBooksLikedByUser([FromQuery]int userId)
+    {
+        var result = await _bookService.GetBook(userId);
+        if (result == null)
+        {
+            return BadRequest();
+        }
+        return Ok(result);
+    }
 }
+

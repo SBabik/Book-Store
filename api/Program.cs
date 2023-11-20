@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BookContext>(opts =>
 {
-    opts.UseMySql("Server=mysql;Database=BookStore;Uid=root;Pwd=admin;", new MySqlServerVersion(new Version(8, 0, 29)),op=>op.EnableRetryOnFailure(10));
+    opts.UseMySql("Server=127.0.0.1;Database=BookStore;Uid=root;Pwd=admin;", new MySqlServerVersion(new Version(8, 0, 29)),op=>op.EnableRetryOnFailure(10));
 });
 
 builder.Services.AddTransient<IBookService, BookService>();

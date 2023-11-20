@@ -21,4 +21,10 @@ public class BookService : IBookService
     {
         return await _bookRepository.Get(id);
     }
+
+    public async Task<List<Book>> GetBooksForUser(int userId)
+    {
+        
+        return
+    }
 }

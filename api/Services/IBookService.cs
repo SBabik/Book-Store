@@ -7,4 +7,5 @@ public interface IBookService
 {
     Task<Book?> AddBook(AddBookRequest book);
     Task<Book?> GetBook(int id);
+    Task<List<Book>> GetBooksForUser(int userId);
 }
