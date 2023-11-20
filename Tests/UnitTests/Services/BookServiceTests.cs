@@ -31,8 +31,9 @@ public class BookServiceTests
     [Fact]
     public async Task BookService_WhenBookDoNotExist_ReturnNull()
     {
+        Book? book = null;
         var mockRepository = new Mock<IBookRepository>();
-        mockRepository.Setup(f => f.Get(It.IsAny<int>())).ReturnsAsync(null, TimeSpan.FromMilliseconds(1));
+        mockRepository.Setup(f => f.Get(It.IsAny<int>())).ReturnsAsync(book);
         var mock = new BookService(mockRepository.Object);
         var result = await mock.GetBook(1);
         result.Should().BeNull();

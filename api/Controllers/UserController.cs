@@ -19,7 +19,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> AddUser([FromBody]AddUserRequest user)
     {
         var result = await _userService.AddUser(user);
-        if(result == null)
+        if(result is null)
         {
             return BadRequest();
         }
@@ -31,7 +31,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Get([FromRoute]int id)
     {
         var result = await _userService.GetUser(id);
-        if (result == null)
+        if (result is null)
         {
             return BadRequest();
         }

@@ -1,7 +1,7 @@
 ﻿namespace book_store.Models;
 
-public class AddBookRequest
+public record AddBookRequest
 {
-    public string BookId { get; set; }
-    public string BookName { get; set; }
+    public required string BookId { get; set; }
+    public required string BookName { get; set; }
 }
