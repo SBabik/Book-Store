@@ -8,7 +8,6 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
     {
         
     }
-
     public async Task<Book> AddBook(string id, string name)
     {
         var book = new Book()
@@ -16,7 +15,7 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
             BookId = id,
             BookName = name
         };
-        book = await Add(book);
+        await Add(book);
         return book;
     }
 

@@ -6,37 +6,67 @@ using book_store.DBContext;
 
 #nullable disable
 
-namespace book_store.Migrations
+namespace book_store.Migrations;
+
+[DbContext(typeof(BookContext))]
+partial class BookContextModelSnapshot : ModelSnapshot
 {
-    [DbContext(typeof(BookContext))]
-    partial class BookContextModelSnapshot : ModelSnapshot
+    protected override void BuildModel(ModelBuilder modelBuilder)
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
-        {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.13")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+        modelBuilder
+            .HasAnnotation("ProductVersion", "7.0.13")
+            .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("book_store.DBContext.Book", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+        modelBuilder.Entity("book_store.DBContext.Book", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    b.Property<string>("BookId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                b.Property<string>("BookId")
+                    .IsRequired()
+                    .HasColumnType("longtext");
 
-                    b.Property<string>("BookName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                b.Property<string>("BookName")
+                    .IsRequired()
+                    .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Book");
-                });
+                b.ToTable("Book");
+            });
+
+        modelBuilder.Entity("book_store.DBContext.User", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                b.Property<string>("Email")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("FirstName")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("LastName")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("Login")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("Password")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.HasKey("Id");
+
+                b.ToTable("User");
+            });
 #pragma warning restore 612, 618
-        }
     }
 }
