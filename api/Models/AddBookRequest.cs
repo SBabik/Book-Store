@@ -2,6 +2,6 @@
 
 public record AddBookRequest
 {
-    public required string BookId { get; set; }
-    public required string BookName { get; set; }
+    public required string BookId { get; init; }
+    public required string BookName { get; init; }
 }
