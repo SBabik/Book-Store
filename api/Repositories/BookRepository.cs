@@ -1,4 +1,6 @@
 ﻿using book_store.DBContext;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.ObjectModel;
 
 namespace book_store.Repositories;
 
@@ -23,6 +25,11 @@ public class BookRepository : RepositoryBase<Book>, IBookRepository
     {
         var entity = await table.FindAsync(id);
         return entity;
+    }
+
+    public async Task<ICollection<Book>> GetMany(ICollection<int> ids)
+    {
+        return await table.Where(x => ids.Contains(x.Id)).ToListAsync();
     }
 
 

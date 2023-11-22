@@ -2,9 +2,9 @@
 
 public record AddUserRequest
 {
-    public required string FirstName { get; set; }
-    public required string LastName { get; set; }
-    public required string Login { get; set; }
-    public required string Password { get; set; }
-    public required string Email { get; set; }
+    public required string FirstName { get; init; }
+    public required string LastName { get; init; }
+    public required string Login { get; init; }
+    public required string Password { get; init; }
+    public required string Email { get; init; }
 }
