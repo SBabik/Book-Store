@@ -20,7 +20,7 @@ public class BookServiceTests
         var book = new Book() { BookId = "1", BookName = "Hary Porter Wine", Id = 1};
         var mockRepository = new Mock<IBookRepository>();
         mockRepository.Setup(f => f.Get(It.IsAny<int>())).ReturnsAsync(book);
-        var mock = new BookService(mockRepository.Object);
+        var mock = new BookService(mockRepository.Object, Mock.Of<IUserBookRepository>());
         var result = await mock.GetBook(1);
         result.Should().NotBeNull();
         result.Id.Should().Be(1);
@@ -34,7 +34,7 @@ public class BookServiceTests
         Book? book = null;
         var mockRepository = new Mock<IBookRepository>();
         mockRepository.Setup(f => f.Get(It.IsAny<int>())).ReturnsAsync(book);
-        var mock = new BookService(mockRepository.Object);
+        var mock = new BookService(mockRepository.Object, Mock.Of<IUserBookRepository>());
         var result = await mock.GetBook(1);
         result.Should().BeNull();
     }
@@ -46,7 +46,7 @@ public class BookServiceTests
         var book = new Book() { BookId = bookRequest.BookId, BookName = bookRequest.BookName, Id = 1 };
         var mockRepository = new Mock<IBookRepository>();
         mockRepository.Setup(f => f.AddBook(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(book);
-        var mock = new BookService(mockRepository.Object);
+        var mock = new BookService(mockRepository.Object, Mock.Of<IUserBookRepository>());
         var result = await mock.AddBook(bookRequest);
         result.Should().NotBeNull();
         result.Id.Should().Be(1);
@@ -60,7 +60,7 @@ public class BookServiceTests
         var bookRequest = new AddBookRequest() { BookId = "1", BookName = "Hary Porter Wine" };
         var mockRepository = new Mock<IBookRepository>();
         mockRepository.Setup(f => f.AddBook(It.IsAny<string>(), It.IsAny<string>())).ThrowsAsync(new Exception());
-        var mock = new BookService(mockRepository.Object);
+        var mock = new BookService(mockRepository.Object, Mock.Of<IUserBookRepository>());
         var result = ()=>mock.AddBook(bookRequest);
         await result.Should().ThrowAsync<Exception>();
     }

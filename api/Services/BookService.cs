@@ -10,10 +10,10 @@ public class BookService : IBookService
 {
     private readonly IBookRepository _bookRepository;
     private readonly IUserBookRepository _userBookRepository;
-    public BookService(IBookRepository bookRepository, IUserBookRepository likedBooksRepository)
+    public BookService(IBookRepository bookRepository, IUserBookRepository userBookRepository)
     {
         _bookRepository = bookRepository;
-        _userBookRepository = likedBooksRepository;
+        _userBookRepository = userBookRepository;
     }
 
     public async Task<Book?> AddBook(AddBookRequest book)
