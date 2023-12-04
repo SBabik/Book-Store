@@ -2,7 +2,9 @@
 using book_store.Models;
 using book_store.Repositories;
 using book_store.Services;
+using Castle.Core.Logging;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -54,7 +56,7 @@ public class BookServiceTests
         result.BookId.CompareTo(bookRequest.BookId);
     }
 
-    [Fact]
+    [Fact]  
     public async Task BookService_IfBookAddFails_ThrowError()
     {
         var bookRequest = new AddBookRequest() { BookId = "1", BookName = "Hary Porter Wine" };
@@ -63,5 +65,17 @@ public class BookServiceTests
         var mock = new BookService(mockRepository.Object, Mock.Of<IUserBookRepository>());
         var result = ()=>mock.AddBook(bookRequest);
         await result.Should().ThrowAsync<Exception>();
+    }
+
+    [Fact]
+    public async Task BookService_IfRelationCreated_ReturnTrue()
+    {
+        var mockUserBookRepository = new Mock<IUserBookRepository>();
+        var mockUserRepository = new Mock<IUserRepository>();
+        var mockBookRepository = new Mock<IBookRepository>();
+        mockBookRepository.Setup(f => f.Get(It.IsAny<int>())).ReturnsAsync(new Book() { Id = 1 });
+        mockUserRepository.Setup(f => f.Get(It.IsAny<int>())).ReturnsAsync(new User() { Id = 1 });
+
+        var mock = new UserBookService(mockUserBookRepository.Object, mockBookRepository.Object, mockUserRepository.Object, Mock.Of<ILogger<UserBookService>>());
     }
 }

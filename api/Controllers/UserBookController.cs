@@ -27,6 +27,6 @@ public class UserBookController : ControllerBase
             _logger.Log(LogLevel.Error, "Book was not added as favourite by user.");
             return BadRequest(result);
         }
-        return Ok(result);
+        return Created($"books/liked?userId={request.UserId}", result);
     }
 }
