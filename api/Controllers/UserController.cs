@@ -1,5 +1,7 @@
-﻿using book_store.Models;
+﻿using book_store.Identity;
+using book_store.Models;
 using book_store.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace book_store.Controllers;
@@ -14,6 +16,7 @@ public class UserController : ControllerBase
         _logger = logger;
     }
 
+    [Authorize(Policy = IdentityData.AdminUserPolicyName)]
     [HttpPost]
     [Route("user")]
     public async Task<IActionResult> AddUser([FromBody]AddUserRequest user)
